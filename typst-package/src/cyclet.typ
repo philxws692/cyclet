@@ -2,6 +2,7 @@
 #let p = plugin("cyclet.wasm")
 
 #let crc16-ccitt = p.crc16-ccitt
+#let crc32-iso-hdlc = p.crc32-iso-hdlc
 
 #let bytes-to-hex(bytes, upper: false) = {
   let res = array(bytes)

@@ -1,1 +1,1 @@
-#import "cyclet.typ": bytes-to-hex, crc16-ccitt
+#import "cyclet.typ": bytes-to-hex, crc16-ccitt, crc32-iso-hdlc
