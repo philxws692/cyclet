@@ -13,5 +13,9 @@ test: build_package
     tinymist test examples/test.typ
     rm -rf target
 
+clean:
+    cargo clean
+    cargo machete --fix
+
 lint:
     cargo clippy

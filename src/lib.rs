@@ -1,4 +1,3 @@
-use crc16::CCITT_FALSE;
 use typst_wasm_protocol::wasm_export;
 
 const CRC32_ISO_HDLC: crc::Algorithm<u32> = crc::Algorithm {
@@ -9,14 +8,27 @@ const CRC32_ISO_HDLC: crc::Algorithm<u32> = crc::Algorithm {
     refout: true,
     xorout: 0xffffffff,
     check: 0xcbf43926,
-    residue: 0xdebb20e3
+    residue: 0xdebb20e3,
+};
+
+const CRC16_CCITT_FALSE: crc::Algorithm<u16> = crc::Algorithm {
+    width: 16,
+    poly: 0x1021,
+    init: 0xffff,
+    refin: false,
+    refout: false,
+    xorout: 0x0000,
+    check: 0xE5CC,
+    residue: 0x1D0F,
 };
 
 #[wasm_export(export_rename = "crc16-ccitt")]
 fn crc16_ccitt(data: &[u8]) -> Result<Vec<u8>, String> {
-    let mut crc = crc16::State::<CCITT_FALSE>::new();
-    crc.update(data);
-    Ok(crc.get().to_be_bytes().to_vec())
+    let crc = crc::Crc::<u16>::new(&CRC16_CCITT_FALSE);
+    let mut checksum = crc.digest();
+    checksum.update(data);
+
+    Ok(checksum.finalize().to_be_bytes().to_vec())
 }
 
 #[wasm_export(export_rename = "crc32-iso-hdlc")]
