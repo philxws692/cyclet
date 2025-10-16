@@ -1,0 +1,11 @@
+[package]
+name = "cyclet"
+version = "0.1.0"
+edition = "2024"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+crc16 = "0.4.0"
+typst-wasm-protocol = "0.0.2"
