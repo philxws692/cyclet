@@ -1,6 +1,7 @@
 
 #let p = plugin("cyclet.wasm")
 
+#let crc8-bluetooth = p.crc8-bluetooth
 #let crc16-ccitt = p.crc16-ccitt
 #let crc32-iso-hdlc = p.crc32-iso-hdlc
 

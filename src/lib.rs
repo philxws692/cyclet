@@ -1,14 +1,15 @@
 use typst_wasm_protocol::wasm_export;
 
-const CRC32_ISO_HDLC: crc::Algorithm<u32> = crc::Algorithm {
-    width: 32,
-    poly: 0x04c11db7,
-    init: 0xffffffff,
+
+const CRC8_BLUETOOTH: crc::Algorithm<u8> = crc::Algorithm {
+    width: 8,
+    poly: 0xa7,
+    init: 0x00,
     refin: true,
     refout: true,
-    xorout: 0xffffffff,
-    check: 0xcbf43926,
-    residue: 0xdebb20e3,
+    xorout: 0x00,
+    check: 0x26,
+    residue: 0x00,
 };
 
 const CRC16_CCITT_FALSE: crc::Algorithm<u16> = crc::Algorithm {
@@ -22,9 +23,29 @@ const CRC16_CCITT_FALSE: crc::Algorithm<u16> = crc::Algorithm {
     residue: 0x1D0F,
 };
 
+const CRC32_ISO_HDLC: crc::Algorithm<u32> = crc::Algorithm {
+    width: 32,
+    poly: 0x04c11db7,
+    init: 0xffffffff,
+    refin: true,
+    refout: true,
+    xorout: 0xffffffff,
+    check: 0xcbf43926,
+    residue: 0xdebb20e3,
+};
+
 #[wasm_export(export_rename = "crc16-ccitt")]
 fn crc16_ccitt(data: &[u8]) -> Result<Vec<u8>, String> {
     let crc = crc::Crc::<u16>::new(&CRC16_CCITT_FALSE);
+    let mut checksum = crc.digest();
+    checksum.update(data);
+
+    Ok(checksum.finalize().to_be_bytes().to_vec())
+}
+
+#[wasm_export(export_rename = "crc8-bluetooth")]
+fn crc8_bluetooth(data: &[u8]) -> Result<Vec<u8>, String> {
+    let crc = crc::Crc::<u8>::new(&CRC8_BLUETOOTH);
     let mut checksum = crc.digest();
     checksum.update(data);
 
