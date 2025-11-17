@@ -11,6 +11,7 @@ test: build_package
     typship dev
     echo "Running tinymist test..."
     tinymist test examples/test.typ
+    tt r
     rm -rf target
 
 clean:
