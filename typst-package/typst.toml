@@ -4,13 +4,13 @@ version = "0.1.0"
 entrypoint = "src/lib.typ"
 authors = ["philxws692"]
 description = "The blazingly fast cyclic redundancy check calculator package for Typst"
-homepage = "https://github.com/philxws692/cyclet"
 repository = "https://github.com/philxws692/cyclet"
 keywords = [
     "crc",
     "redundancy",
     "cyclic",
     "check",
+    "crc8",
     "crc16",
     "crc32",
     "hash",
