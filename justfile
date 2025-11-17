@@ -9,8 +9,7 @@ build_package:
 test: build_package
     @echo "Running typship dev"
     typship dev
-    echo "Running tinymist test..."
-    tinymist test examples/test.typ
+    echo "Running tytanic tests..."
     tt r
     rm -rf target
 
